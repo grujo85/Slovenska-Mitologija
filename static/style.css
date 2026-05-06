@@ -1,0 +1,192 @@
+/* Osnovna podešavanja ekrana */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0b0e14;
+    color: #e0e0e0;
+    overflow: hidden; 
+}
+
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR - Lista bića */
+.sidebar {
+    width: 320px;
+    background-color: #161b22;
+    border-right: 2px solid #d4af37;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-section {
+    padding: 20px;
+    background-color: #0d1117;
+    border-bottom: 1px solid #30363d;
+}
+
+.gold-text { color: #d4af37; text-align: center; margin-top: 0; }
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    background: #0b0e14;
+    border: 1px solid #d4af37;
+    color: white;
+    border-radius: 4px;
+}
+
+.creature-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.creature-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #21262d;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.creature-item:hover { background-color: #1f242c; }
+.creature-item.active { background-color: #d4af37; color: black; }
+.creature-item .name { display: block; font-weight: bold; font-size: 1.1rem; }
+.creature-item .category { font-size: 0.85rem; opacity: 0.7; }
+
+/* GLAVNI PRIKAZ - Ovde smo dodali kolonu zbog logoa */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Logo ide iznad knjige */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #0b0e14;
+}
+
+/* LOGO - naslov_lat.png */
+.logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.main-logo {
+    max-width: 300px;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+}
+
+/* KNJIGA / STRANICA */
+.book-page {
+    background-image: url("/static/slike/pozadina_papir.jpg"); 
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-width: 900px;
+    height: 75vh;
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 
+                inset 0 0 100px rgba(139, 69, 19, 0.2); 
+    border: 1px solid #c9a66b;
+    position: relative;
+    isolation: isolate; /* Sprečava da blend-mode kvari pozadinu sajta */
+}
+
+.image-box {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;    /* Центрира ако је слика нижа од странице */
+    justify-content: center;
+    padding: 20px;          /* Мањи пединг да би слика била већа */
+    box-sizing: border-box;
+    border-right: 2px solid rgba(62, 39, 35, 0.1);
+}
+
+.image-box img {
+    /* Ово осигурава да слика попуни или целу ширину или целу висину */
+    width: 100%;
+    height: 100%;
+    
+    /* Ово је магија: слика ће бити велика, видеће се цела, 
+       а вишак простора ће бити само тамо где слика објективно не може да стигне */
+    object-fit: contain; 
+    
+    /* Појачавамо доживљај "илустрације" */
+    filter: contrast(120%) grayscale(100%) sepia(20%); 
+    mix-blend-mode: multiply;
+    transition: all 0.4s ease-in-out;
+}
+
+.image-box:hover img {
+    filter: grayscale(0%) contrast(100%) sepia(0%);
+    mix-blend-mode: normal;
+    transform: scale(1.02); /* Благо се повећа на ховер за бољи фокус */
+}
+
+/* Na hover slika dobija boju i jasnoću */
+.image-box:hover img {
+    filter: grayscale(0%) contrast(100%);
+    mix-blend-mode: normal;
+    opacity: 1;
+}
+
+/* DESNA STRANA - Tekst kao mastilo */
+.text-box {
+    width: 55%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    color: #2b1d10; /* Boja mastila */
+    font-family: 'Georgia', serif; 
+}
+
+.text-box h1 {
+	font-family: 'Kelly Slab', serif;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: #1a0f0a; 
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.desc-scroll {
+    flex: 1;
+    overflow-y: auto;
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #3b2a1a;
+    margin-top: 15px;
+}
+
+.text-box hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, #8b4513, transparent);
+    opacity: 0.3;
+    margin: 20px 0;
+}
+
+/* Skrolbarovi */
+.creature-list::-webkit-scrollbar, .desc-scroll::-webkit-scrollbar { width: 6px; }
+.creature-list::-webkit-scrollbar-thumb, .desc-scroll::-webkit-scrollbar-thumb { 
+    background: #d4af37; 
+    border-radius: 10px; 
+}
+
+/* Mobilna verzija */
+@media (max-width: 768px) {
+    .layout { flex-direction: column; overflow-y: auto; }
+    .sidebar { width: 100%; height: 250px; border-right: none; }
+    .main-logo { max-width: 80%; }
+    .book-page { flex-direction: column; height: auto; }
+    .image-box, .text-box { width: 100%; }
+    .image-box { height: 300px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+}
