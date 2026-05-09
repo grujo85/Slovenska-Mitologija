@@ -261,41 +261,57 @@ body, html {
 
 /* --- MOBILNA VERZIJA (Telefoni i Tableti) --- */
 @media (max-width: 768px) {
-    /* RESETOVANJE SKROLOVANJA */
+    /* RESET */
     body, html { overflow: auto !important; height: auto; }
-    .layout { flex-direction: column; height: auto; }
+    .layout { flex-direction: column; height: auto; display: block; }
     
-    /* SIDEBAR */
-    .sidebar { width: 100%; height: 350px; border-right: none; border-bottom: 2px solid #d4af37; }
-    .main-logo { max-width: 70%; height: auto; }
+    /* SIDEBAR OSNOVNO */
+    .sidebar { width: 100%; height: auto; max-height: 400px; border-right: none; border-bottom: 2px solid #d4af37; }
 
-    /* SAKRIVANJE LISTE - NOVO */
-    .detalji-aktivni .sidebar { display: none; }
-    .detalji-aktivni .content-area { width: 100%; padding: 5px; }
-    .back-btn { display: none; }
-    .detalji-aktivni .back-btn { 
-        display: block; width: 100%; background: #d4af37; color: black; 
-        padding: 15px; font-weight: bold; border: none; margin-bottom: 10px;
+    /* --- SAKRIVANJE LEVE STRANE KADA SE KLIKNE --- */
+    body.detalji-aktivni .sidebar {
+        display: none !important;
     }
 
-    /* GRIMOAR (GALERIJA) */
-    .book-page { 
-        flex-direction: column; height: auto; max-height: none; 
-        width: 95%; margin: 20px auto; 
+    body.detalji-aktivni .content-area {
+        width: 100% !important;
+        padding: 10px !important;
+        display: flex !important;
     }
-    .detalji-aktivni .book-page { width: 100%; margin: 0; border-radius: 0; }
 
-    .image-box { width: 100% !important; height: 250px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
-    .text-box { width: 100% !important; padding: 20px; height: auto; }
+    /* DUGME NAZAD */
+    body.detalji-aktivni .back-btn {
+        display: block !important;
+        width: 100%;
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 15px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-family: 'Kelly Slab', serif;
+    }
+
+    /* KNJIGA NA MOBILNOM */
+    .book-page {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .image-box, .text-box {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .image-box { height: 250px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .text-box { padding: 20px; }
     .text-box h1 { font-size: 1.8rem; }
-    .desc-scroll { height: auto; overflow: visible !important; }
-
-    /* ARENA */
-    .battle-zone { flex-direction: column; height: auto; gap: 40px; padding: 80px 0; perspective: none; }
-    .card-entity { width: 220px; height: 320px; margin: 10px auto; }
-    #winner-card-display { transform: scale(0.7); }
-
-    /* KONTROLE */
-    .game-controls { flex-direction: column; padding: 10px; gap: 10px; position: relative; }
-    .rpg-btn { width: 100%; padding: 12px; font-size: 1.1em; }
+    .desc-scroll { overflow: visible !important; }
 }
+
+/* Skrolbar stil */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
