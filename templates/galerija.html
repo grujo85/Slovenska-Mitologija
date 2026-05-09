@@ -44,9 +44,16 @@
     </aside>
 
     <main class="content-area">
-		<button class="back-btn" onclick="document.body.classList.remove('detalji-aktivni')">
-        ⬅ NAZAD NA LISTU
-    	</button>
+		<button class="back-btn" onclick="vratiListu()">
+    		⬅ NAZAD NA LISTU
+		</button>
+
+		<script>
+			function vratiListu() {
+    			document.body.classList.remove('detalji-aktivni');
+    			document.querySelector('.sidebar').style.display = 'flex'; // Vraćamo listu
+			}
+		</script>
         <div id="empty-state" class="center-msg">
             <h1>✦ DREVNI GRIMOAR ✦</h1>
             <p>Izaberi zapis iz indeksa sa leve strane...</p>
