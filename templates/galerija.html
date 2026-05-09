@@ -74,7 +74,13 @@
 // Tvoja postojeća funkcija za prikaz
 function prikaziDetalje(ime, opis, slika, kategorija, opasnost, element) {
 	// DODAJ OVU LINIJU: Dodaje klasu na body koja pokreće CSS sakrivanje
+    // 1. Dodajemo klasu za CSS
     document.body.classList.add('detalji-aktivni');
+
+    // 2. BRUTALNA METODA: Direktno sakrivanje ako je ekran mali
+    if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').style.display = 'none';
+    }
     document.getElementById('empty-state').style.display = 'none';
     document.getElementById('details-card').style.display = 'flex';
     document.getElementById('view-name').innerText = ime;
