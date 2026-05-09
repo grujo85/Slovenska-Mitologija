@@ -258,7 +258,10 @@ body, html {
     background: #d4af37;
     border-radius: 5px;
 }
-
+/* Sakrivanje dugmeta na desktopu */
+.back-btn {
+    display: none;
+}
 /* --- MOBILNA VERZIJA (Telefoni i Tableti) --- */
 @media (max-width: 768px) {
     /* RESET */
@@ -325,4 +328,18 @@ body, html {
     .image-box { height: 250px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
     .text-box h1 { font-size: 1.8rem; }
     .desc-scroll { overflow: visible !important; }
+
+	/* Pokaži dugme nazad SAMO na mobilnom i SAMO kad gledamo detalje */
+    body.detalji-aktivni .back-btn {
+        display: block !important;
+        width: 100%;
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 15px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-family: 'Kelly Slab', serif;
+        cursor: pointer;
+    }
 }
