@@ -70,6 +70,8 @@
 <script>
 // Tvoja postojeća funkcija za prikaz
 function prikaziDetalje(ime, opis, slika, kategorija, opasnost, element) {
+	// DODAJ OVU LINIJU: Dodaje klasu na body koja pokreće CSS sakrivanje
+    document.body.classList.add('detalji-aktivni');
     document.getElementById('empty-state').style.display = 'none';
     document.getElementById('details-card').style.display = 'flex';
     document.getElementById('view-name').innerText = ime;
