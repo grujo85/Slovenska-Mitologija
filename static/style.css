@@ -265,21 +265,36 @@ body, html {
     body, html { overflow: auto !important; height: auto; }
     .layout { flex-direction: column; height: auto; display: block; }
     
-    /* SIDEBAR OSNOVNO */
-    .sidebar { width: 100%; height: auto; max-height: 400px; border-right: none; border-bottom: 2px solid #d4af37; }
+    /* 1. SIDEBAR (Lista): Na mobilnom je uvek 100% širine */
+    .sidebar { 
+        width: 100% !important; 
+        height: auto; 
+        max-height: none; 
+        border-right: none; 
+        border-bottom: 2px solid #d4af37; 
+    }
 
-    /* --- SAKRIVANJE LEVE STRANE KADA SE KLIKNE --- */
+    /* 2. CONTENT AREA (Knjiga): SAKRIJ JE dok se ne klikne na biće */
+    .content-area {
+        display: none !important; /* Ovo sprečava da se knjiga vidi ispod liste */
+    }
+
+    /* --- STANJE KADA JE BIĆE KLIKNUTO (detalji-aktivni) --- */
+
+    /* Sakrij listu bića potpuno */
     body.detalji-aktivni .sidebar {
         display: none !important;
     }
 
+    /* Pokaži knjigu preko celog ekrana */
     body.detalji-aktivni .content-area {
-        width: 100% !important;
-        padding: 10px !important;
         display: flex !important;
+        width: 100% !important;
+        min-height: 100vh;
+        padding: 10px !important;
     }
 
-    /* DUGME NAZAD */
+    /* DUGME NAZAD - uvek vidljivo u detaljima */
     body.detalji-aktivni .back-btn {
         display: block !important;
         width: 100%;
@@ -292,7 +307,7 @@ body, html {
         font-family: 'Kelly Slab', serif;
     }
 
-    /* KNJIGA NA MOBILNOM */
+    /* KNJIGA NA MOBILNOM: Slika ide iznad teksta */
     .book-page {
         flex-direction: column;
         height: auto;
@@ -304,14 +319,10 @@ body, html {
     .image-box, .text-box {
         width: 100% !important;
         height: auto;
+        padding: 20px !important;
     }
 
     .image-box { height: 250px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
-    .text-box { padding: 20px; }
     .text-box h1 { font-size: 1.8rem; }
     .desc-scroll { overflow: visible !important; }
 }
-
-/* Skrolbar stil */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
