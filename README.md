@@ -4,86 +4,86 @@
 [![Framework](https://img.shields.io/badge/framework-Flask-lightgrey.svg)](https://flask.palletsprojects.com/)
 [![Database](https://img.shields.io/badge/database-SQLite3-003b57.svg)](https://sqlite.org)
 
-Interaktivna veb aplikacija posvećena očuvanju i istraživanju slovenske mitologije. Projekat kombinuje digitalnu arhivu (Grimoar) sa sistemom za borbu (Arena), uz namenski razvijen administratorski panel za upravljanje podacima.
+An interactive web application dedicated to the preservation and exploration of Slavic mythology. This project combines a digital archive (The Grimoire) with a combat system (The Arena), featuring a custom-built administrative panel for data management.
 
 ---
 
-## 📖 Pregled Modula
+## 📖 Module Overview
 
-### 1. Digitalni Grimoar (Frontend)
-Vizueno bogat interfejs koji simulira autentičnu drevnu knjigu. 
-- **Responzivni UX:** Inteligentno upravljanje prostorom na mobilnim uređajima; lista bića se transformiše u navigacioni meni koji oslobađa punu širinu ekrana za čitanje.
-- **Dizajnerski detalji:** Napredna manipulacija CSS filterima (`sepia`, `contrast`, `blend-mode`) i dinamički generisani kaligrafski inicijali.
+### 1. Digital Grimoire (Frontend)
+A visually rich interface designed to simulate an authentic ancient manuscript.
+- **Responsive UX:** Intelligent screen real-estate management for mobile devices; the creature list transforms into a navigation menu, freeing up full-width space for an immersive reading experience.
+- **Design Elements:** Advanced CSS filter manipulation (`sepia`, `contrast`, `blend-mode`) and dynamically generated calligraphic initials.
 
 ### 2. Admin Panel (Desktop)
-Lokalna Python aplikacija bazirana na `tkinter` biblioteci.
-- Omogućava CRUD operacije nad bazom podataka bez potrebe za SQL znanjem.
-- Direktno mapiranje statistika za Arenu (HP, Attack, Defense).
+A local Python application built with the `tkinter` library.
+- Enables full CRUD operations on the database without requiring SQL knowledge.
+- Direct mapping of combat statistics for the Arena (HP, Attack, Defense).
 
 ### 3. Arena (Backend)
-Sistem zasnovan na Flask framework-u koji dinamički povlači statistike iz SQLite baze, pripremajući teren za logiku borbe.
+A Flask-based system that dynamically pulls stats from the SQLite database, laying the groundwork for turn-based combat logic.
 
 ---
 
-## 🛠 Tehnološki Stack
+## 🛠 Tech Stack
 
-| Komponenta | Tehnologija |
+| Component | Technology |
 | :--- | :--- |
 | **Backend** | Python / Flask |
-| **Baza podataka** | SQLite3 |
+| **Database** | SQLite3 |
 | **GUI (Admin)** | Tkinter |
 | **Frontend** | HTML5, CSS3 (Modern Flexbox), Vanilla JS |
 | **Deployment** | Git / Render.com |
 
 ---
 
-## ⚙️ Instalacija i Konfiguracija
+## ⚙️ Installation & Configuration
 
-### Lokalno pokretanje
-1. Klonirajte repozitorijum:
+### Local Setup
+1. Clone the repository:
    ```bash
-   git clone [https://github.com/vas-username/slavenska-mitologija.git](https://github.com/vas-username/slavenska-mitologija.git)
+   git clone [https://github.com/grujo85/slavic-mythology.git](https://github.com/grujo85/slavic-mythology.git)
 
-    Instalirajte neophodne biblioteke:
+    Install the required dependencies:
     Bash
 
-pip install flask
+   pip install flask
 
-Pokrenite server:
+Run the server:
 Bash
 
     python app.py
 
-Upravljanje podacima
+Data Management
 
-Za dodavanje novih bića, pokrenite administratorski alat:
+To add or update mythical creatures, run the administrative tool:
 Bash
 
 python admin_panel.py
 
-🔄 Kontinuirana Integracija (CI/CD)
+🔄 Continuous Integration (CI/CD)
 
-Projekat koristi Git-based deployment model. S obzirom na to da je baza podataka SQLite (fajl sistem), proces ažuriranja je sledeći:
+The project follows a Git-based deployment model. Since the database is a file-based SQLite system, the update workflow is as follows:
 
-    Lokalna izmena: Unos podataka putem Admin Panela.
+    Local Update: Input data via the Admin Panel on your local machine.
 
-    Commit: git add mitologija.db && git commit -m "Update: New creature data"
+    Commit: git add mitologija.db && git commit -m "Update: New creature data added"
 
     Push: git push origin main
 
-    Deploy: Render.com automatski detektuje promenu, povlači novu verziju baze i restartuje instancu aplikacije.
+    Deploy: Render.com automatically detects the push, pulls the updated database, and redeploys the application instance.
 
-📐 Arhitektura Podataka (Schema)
+📐 Data Schema
 
-Tabela bica u SQLite bazi sadrži sledeće atribute:
+The bica table in the SQLite database consists of the following attributes:
 
-    ime (TEXT) - Primarni ključ / Naziv bića.
+    ime (TEXT) - Primary Key / Name of the creature.
 
-    opis (TEXT) - Detaljna legenda/priča.
+    opis (TEXT) - Detailed lore and legends.
 
-    slika (TEXT) - Putanja do fajla u static/slike/.
+    slika (TEXT) - Filename path located in static/slike/.
 
-    hp, snaga, oklop (INTEGER) - Statistike za borbeni sistem.
+    hp, snaga, oklop (INTEGER) - Combat statistics (Health, Attack, Defense).
 
 🛡 Licenca
 
