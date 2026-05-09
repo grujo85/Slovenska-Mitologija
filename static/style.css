@@ -84,7 +84,7 @@ body, html {
 
 /* KNJIGA / STRANICA */
 .book-page {
-    background-image: url("/static/slike/pozadina_papir.jpg"); 
+    background-image: url("../static/slike/pozadina_papir.jpg"); 
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -261,43 +261,33 @@ body, html {
 
 /* --- MOBILNA VERZIJA (Telefoni i Tableti) --- */
 @media (max-width: 768px) {
-    /* Glavni raspored postaje vertikalan */
-    .layout { flex-direction: column; overflow-y: auto; }
+    /* RESETOVANJE SKROLOVANJA */
+    body, html { overflow: auto !important; height: auto; }
+    .layout { flex-direction: column; height: auto; }
     
-    /* Sidebar (lista bića) se smanjuje na vrh */
-    .sidebar { width: 100%; height: 300px; border-right: none; border-bottom: 2px solid #d4af37; }
-    
-    /* Logo se smanjuje */
+    /* SIDEBAR */
+    .sidebar { width: 100%; height: 350px; border-right: none; border-bottom: 2px solid #d4af37; }
     .main-logo { max-width: 70%; height: auto; }
 
-    /* Arena prilagođavanje */
-    .battle-zone { 
+    /* GRIMOAR (GALERIJA) - POPRAVKA */
+    .book-page { 
         flex-direction: column; 
         height: auto; 
-        gap: 50px; 
-        padding-top: 100px;
-        perspective: none; /* Isključujemo 3D na mobilnom radi boljih performansi */
+        max-height: none; 
+        width: 95%;
+        margin: 20px auto;
     }
+    .image-box { width: 100% !important; height: 250px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .text-box { width: 100% !important; padding: 20px; height: auto; }
+    .text-box h1 { font-size: 1.8rem; }
+    .desc-scroll { height: auto; overflow: visible !important; } /* Tekst se širi prirodno */
 
-    .card-entity { 
-        width: 220px; 
-        height: 320px; 
-        margin: 10px auto; 
-    }
+    /* ARENA */
+    .battle-zone { flex-direction: column; height: auto; gap: 40px; padding: 80px 0; perspective: none; }
+    .card-entity { width: 220px; height: 320px; margin: 10px auto; }
+    #winner-card-display { transform: scale(0.7); }
 
-    /* Victory Screen (Ekran pobede) na mobilnom */
-    #winner-card-display {
-        transform: scale(0.8); /* Smanjujemo kartu pobednika da stane na ekran */
-    }
-
-    h1.game-title { font-size: 2em; } /* Smanjujemo naslov */
-
-    /* Kontrole na dnu postaju vertikalne ako nema mesta */
-    .game-controls { 
-        flex-direction: column; 
-        padding: 10px;
-        gap: 10px;
-    }
-
-    .rpg-btn { width: 100%; padding: 10px; font-size: 1.2em; }
+    /* KONTROLE */
+    .game-controls { flex-direction: column; padding: 10px; gap: 10px; position: relative; }
+    .rpg-btn { width: 100%; padding: 12px; font-size: 1.1em; }
 }
