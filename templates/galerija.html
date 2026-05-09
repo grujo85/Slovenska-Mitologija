@@ -5,6 +5,8 @@
     <title>Mitoloska Riznica</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -15,6 +17,13 @@
 			<div class="logo-container">
 				<img src="/static/slike/naslov_lat.png" alt="Slovenska Mitologija" class="main-logo">
 			</div>
+			<div style="padding: 0 0 15px 0;">
+                <a href="/arena" style="text-decoration: none;">
+                    <button style="width: 100%; background: #d4af37; color: black; font-weight: bold; border: 1px solid gold; padding: 12px; cursor: pointer; border-radius: 5px; font-family: 'Kelly Slab', serif; font-size: 1.1em; transition: 0.3s;">
+                        ⚔️ UĐI U ARENU
+                    </button>
+                </a>
+            </div>
             <!-- DODATO: id="live-search" i onkeyup poziv -->
             <input type="text" id="live-search" class="search-input" 
                    placeholder="Pretraži (latinica/ćirilica)..." 
@@ -41,22 +50,21 @@
         </div>
 
         <div id="details-card" class="book-page" style="display: none;">
-            <div class="image-box">
-                <img id="view-img" src="" alt="Slika bića">
-            </div>
-            <div class="text-box">
-                <h1 id="view-name"></h1>
-                <div class="meta">
-                    <strong>Kategorija:</strong> <span id="view-cat"></span> | 
-                    <strong>Opasnost:</strong> <span id="view-danger"></span>/10
-                </div>
-                <hr>
-                <div class="desc-scroll">
-                    <p id="view-desc"></p>
-                </div>
-            </div>
+    <div class="image-box">
+        <img id="view-img" src="" alt="Slika bića">
+    </div>
+    <div class="text-box">
+        <h1 id="view-name"></h1>
+        <div class="meta">
+            <strong>Kategorija:</strong> <span id="view-cat"></span> | 
+            <strong>Opasnost:</strong> <span id="view-danger"></span>/10
         </div>
-    </main>
+        <hr>
+        <!-- BITNO: view-desc mora biti unutar desc-scroll -->
+        <div class="desc-scroll">
+            <div id="view-desc"></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -65,10 +73,19 @@ function prikaziDetalje(ime, opis, slika, kategorija, opasnost, element) {
     document.getElementById('empty-state').style.display = 'none';
     document.getElementById('details-card').style.display = 'flex';
     document.getElementById('view-name').innerText = ime;
-    document.getElementById('view-desc').innerText = opis;
+    
+    // Generisanje pasusa
+    const descContainer = document.getElementById('view-desc');
+    descContainer.innerHTML = opis.split('\n').map(p => `<p>${p}</p>`).join('');
+    
+    // DODAJ OVO: Resetuje skrol na vrh stranice knjige
+    document.querySelector('.desc-scroll').scrollTop = 0;
+
     document.getElementById('view-cat').innerText = kategorija;
     document.getElementById('view-danger').innerText = opasnost;
     document.getElementById('view-img').src = "/static/slike/" + slika;
+    document.getElementById('view-img').alt = "Ilustracija bića: " + ime;
+    
     document.querySelectorAll('.creature-item').forEach(el => el.classList.remove('active'));
     element.classList.add('active');
 }
