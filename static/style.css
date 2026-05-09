@@ -145,8 +145,11 @@ body, html {
     padding: 50px;
     display: flex;
     flex-direction: column;
-    color: #2b1d10; /* Boja mastila */
-    font-family: 'Georgia', serif; 
+    color: #2b1d10;
+    font-family: 'Georgia', serif;
+    height: 100%;           /* OBAVEZNO: Fiksira visinu da bi skrol radio */
+    box-sizing: border-box; 
+    overflow: hidden;       /* Sprečava da tekst "iscuri" van papira */
 }
 
 .text-box h1 {
@@ -159,11 +162,72 @@ body, html {
 
 .desc-scroll {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: auto !important; /* Forsiramo vertikalni skrol */
+    overflow-x: hidden;          /* Sprečavamo horizontalni skrol */
     line-height: 1.7;
     font-size: 1.1rem;
     color: #3b2a1a;
     margin-top: 15px;
+    
+    /* Dodaj ovo da bi skrolovanje bilo lepše na dodir i mišu */
+    padding-right: 15px;    /* Prostor za skrolbar */ 
+    display: block;      /* Osigurava da se element ponaša kao blok */
+    height: 100%;        /* Ako je unutar flexbox-a, ovo pomaže */
+}
+
+/* Prvo slovo opisa (Inicijal) kao u starim knjigama */
+/* Stilizovanje početnog slova u opisu */
+/* Stil za početno kaligrafsko slovo */
+/* Precizno ciljanje: Prvo slovo prvog pasusa unutar opisa bića */
+/* Magija za prvo slovo */
+/* Stil za raskošni inicijal */
+#view-desc p:first-of-type::first-letter {
+    float: left;
+    font-family: 'Uncial Antiqua', cursive !important;
+    font-size: 4rem;
+    color: #8b4513;
+    font-weight: bold;
+
+    /* 1. Dinamička kutija koja se širi prema slovu */
+    display: table;
+    height: auto;
+    width: auto;
+
+    /* 2. PROSTOR ZA OKVIR (URL) */
+    /* border: debljina okvira na ekranu */
+    border: 15px solid transparent; 
+    
+    /* border-image: putanja, procenat sečenja (30 je standard), način širenja */
+    border-image: url('/static/slike/okvir.png') 30 round;
+
+    /* 3. Unutrašnji razmak da slovo ne dodiaruje okvir */
+    padding: 5px;
+
+    /* 4. Razmak od teksta */
+    margin-right: 15px;
+    margin-top: 5px;
+
+    /* Centriranje */
+    text-align: center;
+    line-height: 1;
+
+    /* Estetika */
+    background-color: rgba(139, 69, 19, 0.05);
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    
+    transform: rotate(-2deg);
+}
+/* Osiguraj da pasusi unutar skrola ne "beže" zbog inicijala */
+.desc-scroll p {
+    /*clear: both;*/ 
+    margin-bottom: 15px;
+    
+    /* DODAJ OVE DVE LINIJE ZA RAVNE IVICE */
+    text-align: justify;
+    text-justify: inter-word; /* Lepše raspoređuje razmak između reči */
+    
+    /* Opciono: sprečava prevelike razmake kod dugačkih srpskih reči */
+    hyphens: auto; 
 }
 
 .text-box hr {
@@ -180,13 +244,60 @@ body, html {
     background: #d4af37; 
     border-radius: 10px; 
 }
+/* Omogućava skrolovanje samo na stranici arene */
+.arena-page {
+    overflow-y: auto !important;
+    height: auto !important;
+    background: linear-gradient(to bottom, #0b0e14, #1a1a2e);
+}
 
-/* Mobilna verzija */
+.arena-page::-webkit-scrollbar {
+    width: 10px;
+}
+.arena-page::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 5px;
+}
+
+/* --- MOBILNA VERZIJA (Telefoni i Tableti) --- */
 @media (max-width: 768px) {
+    /* Glavni raspored postaje vertikalan */
     .layout { flex-direction: column; overflow-y: auto; }
-    .sidebar { width: 100%; height: 250px; border-right: none; }
-    .main-logo { max-width: 80%; }
-    .book-page { flex-direction: column; height: auto; }
-    .image-box, .text-box { width: 100%; }
-    .image-box { height: 300px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    
+    /* Sidebar (lista bića) se smanjuje na vrh */
+    .sidebar { width: 100%; height: 300px; border-right: none; border-bottom: 2px solid #d4af37; }
+    
+    /* Logo se smanjuje */
+    .main-logo { max-width: 70%; height: auto; }
+
+    /* Arena prilagođavanje */
+    .battle-zone { 
+        flex-direction: column; 
+        height: auto; 
+        gap: 50px; 
+        padding-top: 100px;
+        perspective: none; /* Isključujemo 3D na mobilnom radi boljih performansi */
+    }
+
+    .card-entity { 
+        width: 220px; 
+        height: 320px; 
+        margin: 10px auto; 
+    }
+
+    /* Victory Screen (Ekran pobede) na mobilnom */
+    #winner-card-display {
+        transform: scale(0.8); /* Smanjujemo kartu pobednika da stane na ekran */
+    }
+
+    h1.game-title { font-size: 2em; } /* Smanjujemo naslov */
+
+    /* Kontrole na dnu postaju vertikalne ako nema mesta */
+    .game-controls { 
+        flex-direction: column; 
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .rpg-btn { width: 100%; padding: 10px; font-size: 1.2em; }
 }
